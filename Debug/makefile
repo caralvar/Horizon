@@ -8,6 +8,12 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./ADC_Task.obj" \
+"./LCD_Task.obj" \
+"./LED.obj" \
+"./Mailbox.obj" \
+"./Scheduler.obj" \
+"./Task.obj" \
 "./main.obj" \
 "./system_msp432p401r.obj" \
 "./LcdDriver/Crystalfontz128x128_ST7735.obj" \
@@ -133,43 +139,43 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-HorizonTest.out \
+Horizon.out \
 
 EXE_OUTPUTS__QUOTED += \
-"HorizonTest.out" \
+"Horizon.out" \
 
 BIN_OUTPUTS += \
-HorizonTest.hex \
+Horizon.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"HorizonTest.hex" \
+"Horizon.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "HorizonTest.out"
+	@$(MAKE) --no-print-directory -Onone "Horizon.out"
 
 # Tool invocations
-HorizonTest.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+Horizon.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"HorizonTest.map" --stack_size=512 -i"/home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source" -i"/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="HorizonTest_linkInfo.xml" --rom_model -o "HorizonTest.out" $(ORDERED_OBJS)
+	"/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"Horizon.map" --stack_size=512 -i"/home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source" -i"/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Horizon_linkInfo.xml" --rom_model -o "Horizon.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-HorizonTest.hex: $(EXE_OUTPUTS)
+Horizon.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/bin/armhex"  -o "HorizonTest.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/bin/armhex"  -o "Horizon.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "system_msp432p401r.obj" "LcdDriver/Crystalfontz128x128_ST7735.obj" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "ccs/startup_msp432p401r_ccs.obj" 
+	-$(RM) "ADC_Task.obj" "LCD_Task.obj" "LED.obj" "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "system_msp432p401r.obj" "LcdDriver/Crystalfontz128x128_ST7735.obj" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "ccs/startup_msp432p401r_ccs.obj" 
 	-$(RM) "system_msp432p401r.d" "ccs/startup_msp432p401r_ccs.d" 
-	-$(RM) "main.d" "LcdDriver/Crystalfontz128x128_ST7735.d" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" 
+	-$(RM) "ADC_Task.d" "LCD_Task.d" "LED.d" "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "LcdDriver/Crystalfontz128x128_ST7735.d" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

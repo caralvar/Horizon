@@ -6,7 +6,7 @@ ADC_Task::ADC_Task(int i) //Constructor definition
 
 }
 
-uint8_t ADC_Task::run()  // Function Run (toggles led) definition
+uint8_t ADC_Task::run()  // Function Run (toggles led) definition ADC14_getEnabledInterruptStatus
 {
     uint64_t status;
 
@@ -14,7 +14,7 @@ uint8_t ADC_Task::run()  // Function Run (toggles led) definition
         MAP_ADC14_clearInterruptFlag(status);
 
         /* ADC_MEM2 conversion completed */
-        if(status & ADC_INT2)
+        if(status & (ADC_INT0 | ADC_INT1 | ADC_INT2))
         {
             /* Store ADC14 conversion results */
             resultsBuffer[0] = ADC14_getResult(ADC_MEM0);
@@ -37,9 +37,9 @@ uint8_t ADC_Task::setup() // PORT SETUP definition
             0);
 
     /* Configuring ADC Memory (ADC_MEM0 - ADC_MEM2 (A11, A13, A14)  with no repeat)
-         * with internal 2.5v reference */
-    MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM2, true);
-    MAP_ADC14_configureConversionMemory(ADC_MEM0,
+         * with internal 2.5v reference */ // ADC14_configureConversionMemory
+    //MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM2, true);
+    MAP_ADC14_configureConversionMemory(ADC_MEM0 | ADC_MEM1 | ADC_MEM2,
             ADC_VREFPOS_AVCC_VREFNEG_VSS,
             ADC_INPUT_A14, ADC_NONDIFFERENTIAL_INPUTS);
 

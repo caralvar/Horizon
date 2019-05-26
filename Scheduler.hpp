@@ -7,19 +7,17 @@
 
 #ifndef TASKS_SCHEDULER_HPP_
 #define TASKS_SCHEDULER_HPP_
-#include <LcdDriver/Crystalfontz128x128_ST7735.hpp>
+
 #include <ti/devices/msp432p4xx/inc/msp.h>
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-#include <ti/grlib/grlib.h>
-#include <stdio.h>
 #include "Task.hpp"
+#include "Mailbox.hpp"
 
 #define NUMBER_OF_SLOTS 255
 #define NULL            0
 
 // - This structure defines the Task Information
 struct st_TaskInfo {
-	Task * pToAttach; // - Pointer to the Task
+	Task *pToAttach; // - Pointer to the Task
 	uint64_t u64TickInterval; // - How often the task is executed
 	uint64_t u64ticks; // - Current tick count
 	uint64_t u64TickIntervalInitValue; // - Value to reset // PREGUNTAR

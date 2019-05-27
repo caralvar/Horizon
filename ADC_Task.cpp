@@ -1,9 +1,9 @@
 #include <ADC_Task.hpp>
-uint16_t resultsBuffer[3];
 
-ADC_Task::ADC_Task(int i) //Constructor definition
+
+ADC_Task::ADC_Task(Mailbox * i_ptrMailbox) //Constructor definition
 {
-
+    this->m_ptrMailbox = i_ptrMailbox;
 }
 
 uint8_t ADC_Task::run()  // Function Run (toggles led) definition ADC14_getEnabledInterruptStatus
@@ -17,11 +17,13 @@ uint8_t ADC_Task::run()  // Function Run (toggles led) definition ADC14_getEnabl
         if(status & (ADC_INT0 | ADC_INT1 | ADC_INT2))
         {
             /* Store ADC14 conversion results */
-            resultsBuffer[0] = ADC14_getResult(ADC_MEM0);
-            resultsBuffer[1] = ADC14_getResult(ADC_MEM1);
-            resultsBuffer[2] = ADC14_getResult(ADC_MEM2);
+            m_u16ResultsBuffer[0] = ADC14_getResult(ADC_MEM0); //z
+            m_u16ResultsBuffer[1] = ADC14_getResult(ADC_MEM1); //y
+            m_u16ResultsBuffer[2] = ADC14_getResult(ADC_MEM2); //x
         }
 
+
+        this->m_CreateAndPostMsg();
     return(NO_ERR);
 }
 
@@ -38,7 +40,7 @@ uint8_t ADC_Task::setup() // PORT SETUP definition
 
     /* Configuring ADC Memory (ADC_MEM0 - ADC_MEM2 (A11, A13, A14)  with no repeat)
          * with internal 2.5v reference */ // ADC14_configureConversionMemory
-    //MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM2, true);
+    MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM2, true);
     MAP_ADC14_configureConversionMemory(ADC_MEM0 | ADC_MEM1 | ADC_MEM2,
             ADC_VREFPOS_AVCC_VREFNEG_VSS,
             ADC_INPUT_A14, ADC_NONDIFFERENTIAL_INPUTS);
@@ -68,5 +70,23 @@ uint8_t ADC_Task::setup() // PORT SETUP definition
     MAP_ADC14_enableConversion();
     MAP_ADC14_toggleConversionTrigger();
 
-    return(NO_ERR);
+    return (NO_ERR);
+}
+
+
+uint8_t ADC_Task::m_CreateAndPostMsg()
+{
+    //Create Msg
+    st_Msg l_MsgToSend;
+    // Construct content
+    l_MsgToSend.u32MsgContent = static_cast<uint16_t>(m_u16ResultsBuffer[2]);
+    l_MsgToSend.u32MsgContent = l_MsgToSend.u32MsgContent << 16;
+    l_MsgToSend.u32MsgContent += static_cast<uint16_t>(m_u16ResultsBuffer[1]);
+    //To
+    l_MsgToSend.u8ToId = this->GetReceiverTaskId();
+    //From
+    l_MsgToSend.u8FromId = this->GetTaskId();
+    //Post
+    m_ptrMailbox->m_PostMessage(l_MsgToSend);
+    return (NO_ERR);
 }

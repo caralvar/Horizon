@@ -23,7 +23,7 @@ class LCD_Task : public Task // clase heredada de tipo Task
     public:
 
         // Constructor prototype
-        LCD_Task(int i);
+        LCD_Task(Mailbox *i_ptrMailbox);
         // run prototype (inherited from the class task)
         virtual uint8_t run(void);
 
@@ -34,8 +34,9 @@ class LCD_Task : public Task // clase heredada de tipo Task
 
 
     private:
-
-
+        Mailbox * m_ptrMailbox;
+        Graphics_Context m_DisplayContext;
+        uint8_t m_u8indicatorHeight[2];
     protected:
 };
 

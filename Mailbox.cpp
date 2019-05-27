@@ -13,7 +13,8 @@ uint8_t Mailbox::m_PostMessage(st_Msg i_st_Msg_incomingMsg)
 
 st_Msg Mailbox::m_ReadMessage(uint8_t i_u8TaskID)
 {
-    return m_arrSt_Msg_CurrentMessages[i_u8TaskID][m_arrU8_messageCounter[i_u8TaskID] - 1];
+    m_arrU8_messageCounter[i_u8TaskID]--;
+    return m_arrSt_Msg_CurrentMessages[i_u8TaskID][m_arrU8_messageCounter[i_u8TaskID]];
 }
 
 

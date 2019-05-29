@@ -26,6 +26,7 @@ void main(void)
 	LCD_Task LCDTest(&g_MainMailbox);
 	ADC_Task ADCTest(&g_MainMailbox);
 
+	// Sets the LCD task as the ADC receiver
 	ADCTest.SetTaskReceiverId(LCDTest.GetTaskId());
     // - Run the overall setup function for the system
     Setup();

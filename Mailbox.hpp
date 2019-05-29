@@ -1,8 +1,9 @@
 /*
  * mailbox.hpp
  *
- *  Created on: 
- *      Author: caramd9506
+ * Mailbox objects allows communication between tasks.
+ *      Author: Carlos Alvarado
+ *              Daniel Diaz
  */
 
 #ifndef MAILBOX_HPP_ 
@@ -10,11 +11,11 @@
 #define __NOP __nop // PREGUNTAR
 #define NO_ERR 0
 #define RET_ERR 1
-#define MSG_SLOTS       10
-#define NUMBER_OF_SLOTS       255
-
+#define MSG_SLOTS       10        // Mailbox size per Task
+#define NUMBER_OF_SLOTS       255 // Same as available Task IDs
 #include <array>
 
+// - This structure defines the messages format
 struct st_Msg {
     uint8_t u8FromId;
     uint8_t u8ToId;
@@ -30,8 +31,8 @@ class Mailbox
         bool m_CheckMailbox(uint8_t i_u8TaskID);
 
     private:
-        std::array<uint8_t, NUMBER_OF_SLOTS> m_arrU8_messageCounter;
-        std::array<std::array<st_Msg, MSG_SLOTS>, NUMBER_OF_SLOTS> m_arrSt_Msg_CurrentMessages;
+        std::array<uint8_t, NUMBER_OF_SLOTS> m_arrU8_messageCounter; // Counts number of messages in mailbox per task
+        std::array<std::array<st_Msg, MSG_SLOTS>, NUMBER_OF_SLOTS> m_arrSt_Msg_CurrentMessages; // Allocates current messages on mailbox
         bool m_bMailboxEmpty;
     protected:
 };

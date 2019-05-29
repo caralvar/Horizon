@@ -60,11 +60,6 @@ LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/i
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_ti_config.h
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/linkage.h
 LCD_Task.obj: /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/grlib/grlib.h
-LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/stdio.h
-LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/stdio.h
-LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/stdarg.h
-LCD_Task.obj: /home/carlos/ccsWorkspace/Horizon/ADC_Task.hpp
-LCD_Task.obj: /home/carlos/ccsWorkspace/Horizon/Task.hpp
 LCD_Task.obj: /home/carlos/ccsWorkspace/Horizon/Mailbox.hpp
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/array
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__tuple
@@ -109,6 +104,8 @@ LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/i
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/support/ti/support.h
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros
+LCD_Task.obj: /home/carlos/ccsWorkspace/Horizon/Task.hpp
+LCD_Task.obj: /home/carlos/ccsWorkspace/Horizon/ADC_Task.hpp
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/math.h
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/math.h
 LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_defs.h
@@ -173,11 +170,6 @@ LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/i
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_ti_config.h: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/linkage.h: 
 /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/grlib/grlib.h: 
-/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/stdio.h: 
-/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/stdio.h: 
-/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/stdarg.h: 
-/home/carlos/ccsWorkspace/Horizon/ADC_Task.hpp: 
-/home/carlos/ccsWorkspace/Horizon/Task.hpp: 
 /home/carlos/ccsWorkspace/Horizon/Mailbox.hpp: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/array: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__tuple: 
@@ -222,6 +214,8 @@ LCD_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/i
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/support/ti/support.h: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros: 
+/home/carlos/ccsWorkspace/Horizon/Task.hpp: 
+/home/carlos/ccsWorkspace/Horizon/ADC_Task.hpp: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/math.h: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/math.h: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_defs.h: 

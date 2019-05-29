@@ -13,7 +13,7 @@ uint8_t ADC_Task::run()  // Function Run (toggles led) definition ADC14_getEnabl
         status = MAP_ADC14_getEnabledInterruptStatus();
         MAP_ADC14_clearInterruptFlag(status);
 
-        /* ADC_MEM2 conversion completed */
+        // Reads conversion result values
         if(status & (ADC_INT0 | ADC_INT1 | ADC_INT2))
         {
             /* Store ADC14 conversion results */
@@ -22,13 +22,15 @@ uint8_t ADC_Task::run()  // Function Run (toggles led) definition ADC14_getEnabl
             m_u16ResultsBuffer[2] = ADC14_getResult(ADC_MEM2); //x
         }
 
-
         this->m_CreateAndPostMsg();
     return(NO_ERR);
 }
 
 uint8_t ADC_Task::setup() // PORT SETUP definition
 {
+    // Setup from the example http://dev.ti.com/tirex/explore/node?node=AD7fp0zahQovr1tZ1p6Qbw__z-lQYNj__LATEST
+    // at TI resource explorer
+
     /* Configures Pin 4.0, 4.2, and 6.1 as ADC input */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P4, GPIO_PIN0 | GPIO_PIN2, GPIO_TERTIARY_MODULE_FUNCTION);
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P6, GPIO_PIN1, GPIO_TERTIARY_MODULE_FUNCTION);
@@ -91,6 +93,7 @@ uint8_t ADC_Task::m_CreateAndPostMsg()
     return (NO_ERR);
 }
 
+// Calculates axis angle respect to g
 uint16_t ADC_Task::m_GetAngle(uint16_t i_u16Axis)
 {
     float l_fDiv;

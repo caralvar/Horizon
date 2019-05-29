@@ -1,7 +1,7 @@
 #include <LCD_Task.hpp>
 #include <ADC_Task.hpp>
 Graphics_Context m_DisplayContext;
-uint8_t m_u8indicatorHeight[2] = { 50, 53};
+uint8_t m_i16indicatorHeight[2] = { 50, 53};
 
 LCD_Task::LCD_Task(Mailbox *i_ptrMailbox) //Constructor definition
 {
@@ -15,35 +15,38 @@ uint8_t LCD_Task::run()  // Function Run (toggles led) definition
     {
 
         st_Msg l_st_MsgNewMsg = m_ptrMailbox->m_ReadMessage(this->GetTaskId());
-        uint16_t l_u16ResultsBuffer[2];
+        int16_t l_u16ResultsBuffer[2];
 
-        l_u16ResultsBuffer[1] = static_cast<uint16_t>(l_st_MsgNewMsg.u32MsgContent & 0x0000FFFF);
-        l_u16ResultsBuffer[0] = static_cast<uint16_t>(l_st_MsgNewMsg.u32MsgContent >> 16);
+        l_u16ResultsBuffer[0] = static_cast<int16_t>(l_st_MsgNewMsg.u32MsgContent & 0x0000FFFF);
+        l_u16ResultsBuffer[1] = static_cast<int16_t>(l_st_MsgNewMsg.u32MsgContent >> 16);
 
-        m_u8indicatorHeight[0] = conversion(&m_DisplayContext, l_u16ResultsBuffer[0]); //ALTURA ACTUAL
-        if (m_u8indicatorHeight[0] > m_u8indicatorHeight[1] + 2 || m_u8indicatorHeight[0] < m_u8indicatorHeight[1] - 2)
+        m_i16Angles[0] = l_u16ResultsBuffer[0] - 90;
+        m_i16Angles[1] = l_u16ResultsBuffer[1] - 90;
+
+        m_i16Points[0] = m_GetHorizonBorderIntersection( m_i16Angles[0],  m_i16Angles[1]);
+
+        m_i16indicatorHeight[0] = (uint8_t) (m_i16Angles[1] * (128.0/180.0) + 64.0);
+
+        if (m_i16indicatorHeight[0] < 5) m_i16indicatorHeight[0] = 0;
+        if (m_i16indicatorHeight[0] > 123) m_i16indicatorHeight[0] = 128;
+
+        if (m_i16indicatorHeight[0] > m_i16indicatorHeight[1] + 2 || m_i16indicatorHeight[0] < m_i16indicatorHeight[1] - 2 ||
+                m_i16Points[0][0] > m_i16Points[1][0] + 2 || m_i16Points[0][0] < m_i16Points[1][0] - 2 ||
+                m_i16Points[0][1] > m_i16Points[1][1] + 2 || m_i16Points[0][1] < m_i16Points[1][1] - 2)
         {
-             if (m_u8indicatorHeight[0] > m_u8indicatorHeight[1])
-             {
-                 int i;
-                 Graphics_setForegroundColor(&m_DisplayContext, GRAPHICS_COLOR_BLUE);     // FOREGROUND COLOR (PINTA)
-                 for (i = 0; i < m_u8indicatorHeight[0] - m_u8indicatorHeight[1] + 1; i++)
-                 {
-                     Graphics_drawLineH(&m_DisplayContext, 0, Graphics_getDisplayWidth(&m_DisplayContext), m_u8indicatorHeight[0] - i);
-                 }
-
-             }
-             else
-             {
-                 int i;
-                 Graphics_setForegroundColor(&m_DisplayContext, GRAPHICS_COLOR_GREEN);     // FOREGROUND COLOR (PINTA)
-                 for (i = 0; i < m_u8indicatorHeight[1] - m_u8indicatorHeight[0] + 1; i++)
-                 {
-                     Graphics_drawLineH(&m_DisplayContext, 0, Graphics_getDisplayWidth(&m_DisplayContext), m_u8indicatorHeight[0] + i);
-                 }
-             }
-             m_u8indicatorHeight[1] = m_u8indicatorHeight[0];
+            struct Graphics_Rectangle l_blueRectangle = { 0, 0, 128, m_i16indicatorHeight[0]};
+            struct Graphics_Rectangle l_greenRectangle = { 0, m_i16indicatorHeight[0], 128, 128};
+            Graphics_setForegroundColor(&m_DisplayContext, GRAPHICS_COLOR_GREEN);
+            Graphics_fillRectangle(&m_DisplayContext, &l_greenRectangle);
+            Graphics_setForegroundColor(&m_DisplayContext, GRAPHICS_COLOR_BLUE);
+            Graphics_fillRectangle(&m_DisplayContext, &l_blueRectangle);
+            Graphics_setForegroundColor(&m_DisplayContext, GRAPHICS_COLOR_WHITE);
+            Graphics_drawLine(&m_DisplayContext, m_i16Points[0][0], m_i16Points[0][1],m_i16Points[0][2], m_i16Points[0][3]);
+            Graphics_drawLine(&m_DisplayContext, m_i16Points[0][0], m_i16Points[0][1] + 1,m_i16Points[0][2], m_i16Points[0][3] + 1);
+            m_i16indicatorHeight[1] = m_i16indicatorHeight[0];
+            m_i16Points[1] = m_i16Points[0];
         }
+
         return(NO_ERR);
     }
 }
@@ -67,9 +70,85 @@ uint8_t LCD_Task::setup() // PORT SETUP definition
 }
 
 
-uint8_t LCD_Task::conversion(Graphics_Context *ctxt, uint16_t x)
+std::array<int16_t, 4>  LCD_Task::m_GetHorizonBorderIntersection( int16_t i_i16Ax,  int16_t i_i16Az)
 {
-    float m = 0 - Graphics_getDisplayHeight(ctxt)/(11440.0 - 4900.0);
-    float b = -m * 11440.0;
-    return (uint8_t) (m * x + b) ;
+    std::array<int16_t, 4> l_i16Result;
+       uint8_t l_u8Height;
+       l_u8Height = (uint8_t) (i_i16Az * (128.0/180.0) + 64.0);
+
+       // Full arriba
+       if (i_i16Az > 80)
+       {
+           //Izqu
+           l_i16Result[0] = 0;
+           l_i16Result[1] = 128;
+           //Dere
+           l_i16Result[2] = 128;
+           l_i16Result[3] = 128;
+           return l_i16Result;
+       }
+       // Full abajo
+       else if (i_i16Az < -80)
+       {
+           //Izqu
+           l_i16Result[0] = 0;
+           l_i16Result[1] = 0;
+           //Dere
+           l_i16Result[2] = 128;
+           l_i16Result[3] = 0;
+           return l_i16Result;
+       }
+
+       //Normal
+       if (i_i16Ax >= -45 && i_i16Ax <= 45)
+       {
+           //Izqu
+           l_i16Result[0] = 0;
+           l_i16Result[1] = (int16_t) (l_u8Height - 64 * tan(i_i16Ax * PI / 180));
+           //Dere
+           l_i16Result[2] = 128;
+           l_i16Result[3] = (int16_t) (l_u8Height + 64 * tan(i_i16Ax * PI / 180));
+       }
+       // Inclinacion derecha
+       else if (i_i16Ax >= -75 && i_i16Ax < -45)
+       {
+           //Izqu
+           l_i16Result[0] = (int16_t) (64 - 64 * tan((90 + i_i16Ax) * PI / 180));
+           l_i16Result[1] = 128;
+           //Dere
+           l_i16Result[2] = (int16_t) (64 + 64 * tan((90 + i_i16Ax) * PI / 180));
+           l_i16Result[3] = 0;
+       }
+       // Inclinacion izquierda
+       else if (i_i16Ax > 45 && i_i16Ax <= 75)
+       {
+           //Izqu
+           l_i16Result[0] = (int16_t) (64 - 64 * tan((90 - i_i16Ax) * PI / 180));
+           l_i16Result[1] = 0;
+           //Dere
+           l_i16Result[2] = (int16_t) (64 + 64 * tan((90 - i_i16Ax) * PI / 180));
+           l_i16Result[3] = 128;
+       }
+       // Full derecha
+       else if (i_i16Ax < -75)
+       {
+           //Izqu
+           l_i16Result[0] = 64;
+           l_i16Result[1] = 128;
+           //Dere
+           l_i16Result[2] = 64;
+           l_i16Result[3] = 0;
+       }
+       // Full izquierda
+       else if (i_i16Ax > 75)
+       {
+           //Izqu
+           l_i16Result[0] = 64;
+           l_i16Result[1] = 0;
+           //Dere
+           l_i16Result[2] = 64;
+           l_i16Result[3] = 128;
+       }
+       return l_i16Result;
 }
+

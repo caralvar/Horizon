@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <ADC_Task.hpp>
 #include "Task.hpp" // Includes parent class
-
+#include <array>
 
 class LCD_Task : public Task // clase heredada de tipo Task
 {
@@ -30,13 +30,13 @@ class LCD_Task : public Task // clase heredada de tipo Task
         // setup prototype (inherited from the class task)
         virtual uint8_t setup(void);
 
-        uint8_t conversion(Graphics_Context *ctxt, uint16_t x);
-
-
+        std::array<int16_t, 4>  m_GetHorizonBorderIntersection( int16_t i_i16Ax,  int16_t i_i16Az);
     private:
         Mailbox * m_ptrMailbox;
         Graphics_Context m_DisplayContext;
-        uint8_t m_u8indicatorHeight[2];
+        int16_t m_i16indicatorHeight[2];
+        int16_t m_i16Angles[2];
+        std::array<std::array<int16_t, 4>, 2> m_i16Points;
     protected:
 };
 

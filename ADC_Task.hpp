@@ -8,11 +8,13 @@
 #ifndef ADC_TASK_HPP_ 
 #define ADC_TASK_HPP_
 #define __NOP __nop // PREGUNTAR
+#define PI 3.14159265
 
 #include <ti/devices/msp432p4xx/inc/msp.h>
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 #include "Task.hpp" // Includes parent class
 #include "Mailbox.hpp"
+#include <math.h>
 
 class ADC_Task : public Task // clase heredada de tipo Task
 {
@@ -27,6 +29,7 @@ class ADC_Task : public Task // clase heredada de tipo Task
         virtual uint8_t setup(void); 
 
         uint8_t m_CreateAndPostMsg(void);
+        uint16_t m_GetAngle(uint16_t i_u16Axis);
 
     private:
         Mailbox *m_ptrMailbox;

@@ -104,6 +104,9 @@ main.obj: /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/m
 main.obj: /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/wdt_a.h
 main.obj: /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 main.obj: /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/flash.h
+main.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/math.h
+main.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/math.h
+main.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_defs.h
 main.obj: ../LCD_Task.hpp
 main.obj: /home/carlos/ccsWorkspace/Horizon/LcdDriver/Crystalfontz128x128_ST7735.hpp
 main.obj: /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/grlib/grlib.h
@@ -217,6 +220,9 @@ main.obj: ../LED.hpp
 /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/wdt_a.h: 
 /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/sysctl.h: 
 /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/flash.h: 
+/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/math.h: 
+/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/math.h: 
+/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_defs.h: 
 ../LCD_Task.hpp: 
 /home/carlos/ccsWorkspace/Horizon/LcdDriver/Crystalfontz128x128_ST7735.hpp: 
 /home/carlos/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/grlib/grlib.h: 

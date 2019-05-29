@@ -79,9 +79,9 @@ uint8_t ADC_Task::m_CreateAndPostMsg()
     //Create Msg
     st_Msg l_MsgToSend;
     // Construct content
-    l_MsgToSend.u32MsgContent = static_cast<uint16_t>(m_u16ResultsBuffer[2]);
+    l_MsgToSend.u32MsgContent = static_cast<uint16_t>(m_GetAngle(m_u16ResultsBuffer[2]));
     l_MsgToSend.u32MsgContent = l_MsgToSend.u32MsgContent << 16;
-    l_MsgToSend.u32MsgContent += static_cast<uint16_t>(m_u16ResultsBuffer[1]);
+    l_MsgToSend.u32MsgContent += static_cast<uint16_t>(m_GetAngle(m_u16ResultsBuffer[0]));
     //To
     l_MsgToSend.u8ToId = this->GetReceiverTaskId();
     //From
@@ -89,4 +89,13 @@ uint8_t ADC_Task::m_CreateAndPostMsg()
     //Post
     m_ptrMailbox->m_PostMessage(l_MsgToSend);
     return (NO_ERR);
+}
+
+uint16_t ADC_Task::m_GetAngle(uint16_t i_u16Axis)
+{
+    float l_fDiv;
+    l_fDiv = (i_u16Axis - 8220.0) / 3170.0;
+    if (l_fDiv < -1.0) l_fDiv = -1.0;
+    if (l_fDiv > 1.0) l_fDiv = 1.0;
+    return (uint16_t) (acos(l_fDiv) * 180.0 / PI);
 }

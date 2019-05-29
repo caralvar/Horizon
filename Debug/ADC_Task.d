@@ -102,6 +102,9 @@ ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/i
 ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros
 ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/support/ti/support.h
 ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros
+ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/math.h
+ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/math.h
+ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_defs.h
 
 ../ADC_Task.cpp: 
 /home/carlos/ccsWorkspace/Horizon/ADC_Task.hpp: 
@@ -205,3 +208,6 @@ ADC_Task.obj: /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/i
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/support/ti/support.h: 
 /home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/__undef_macros: 
+/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/libcxx/math.h: 
+/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/math.h: 
+/home/carlos/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include/_defs.h: 
